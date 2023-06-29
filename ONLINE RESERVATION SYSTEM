@@ -1,0 +1,147 @@
+package prime;
+import java.util.Scanner;
+
+public class Prime {
+    private static Scanner scanner = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        displayLoginForm();
+    }
+    
+    public static void displayLoginForm() {
+        System.out.println("=== Login Form ===");
+        String username = getInput("Enter your username: ");
+        String password = getInput("Enter your password: ");
+        
+        
+        if (isValidLogin(username, password)) {
+            System.out.println("Login successful!");
+            displayMainMenu();
+        } else {
+            System.out.println("Invalid login credentials. Please try again.");
+            displayLoginForm();
+        }
+    }
+    
+    public static boolean isValidLogin(String username, String password) {
+        
+        
+        // Example implementation:
+        return username.equals("admin") && password.equals("password");
+    }
+    
+    public static void displayMainMenu() {
+        System.out.println("\n=== Main Menu ===");
+        System.out.println("1. Make a reservation");
+        System.out.println("2. Cancel a reservation");
+        System.out.println("3. Exit");
+        
+        int choice = getNumericInput("Enter your choice: ");
+        
+        switch (choice) {
+            case 1:
+                displayReservationForm();
+                break;
+            case 2:
+                displayCancellationForm();
+                break;
+            case 3:
+                System.out.println("Thank you for using the Reservation System. Goodbye!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                displayMainMenu();
+        }
+    }
+    
+    public static void displayReservationForm() {
+        System.out.println("\n=== Reservation Form ===");
+        String name = getInput("Enter your name: ");
+        String trainNumber = getInput("Enter the train number: ");
+        String classType = getInput("Enter the class type: ");
+        String dateOfJourney = getInput("Enter the date of journey: ");
+        String origin = getInput("Enter the origin: ");
+        String destination = getInput("Enter the destination: ");
+        
+        
+        saveReservationDetails(name, trainNumber, classType, dateOfJourney, origin, destination);
+        
+        System.out.println("Reservation successfully made!");
+        displayMainMenu();
+    }
+    
+    public static void displayCancellationForm() {
+        System.out.println("\n=== Cancellation Form ===");
+        String pnrNumber = getInput("Enter your PNR number: ");
+        
+        
+        if (isReservationExists(pnrNumber)) {
+            
+            displayReservationDetails(pnrNumber);
+            
+            String confirmation = getInput("Are you sure you want to cancel this reservation? (yes/no): ");
+            
+            if (confirmation.equalsIgnoreCase("yes")) {
+                
+                cancelReservation(pnrNumber);
+                System.out.println("Reservation successfully canceled!");
+            } else {
+                System.out.println("Reservation cancellation aborted.");
+            }
+        } else {
+            System.out.println("Reservation not found.");
+        }
+        
+        displayMainMenu();
+    }
+    
+    
+    public static String getInput(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
+    }
+    
+    public static int getNumericInput(String prompt) {
+        System.out.print(prompt);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            System.out.print(prompt);
+            scanner.next();
+        }
+        int number = scanner.nextInt();
+        scanner.nextLine(); 
+        return number;
+    }
+    
+    
+    public static void saveReservationDetails(String name, String trainNumber, String classType, String dateOfJourney, String origin, String destination) {
+        
+        // Example implementation:
+        System.out.println("Saving reservation details to the database...");
+    }
+    
+    public static boolean isReservationExists(String pnrNumber) {
+       
+        // Example implementation:
+        return pnrNumber.equals("123456");
+    }
+    
+    public static void displayReservationDetails(String pnrNumber) {
+        
+        // Example implementation:
+        System.out.println("Reservation details:");
+        System.out.println("Name: Akshay");
+        System.out.println("Train Number: 12");
+        System.out.println("Class Type: First Class");
+        System.out.println("Date of Journey: 25/06/2023");
+        System.out.println("Origin: Tumkur");
+        System.out.println("Destination: Banglore");
+    }
+    
+    public static void cancelReservation(String pnrNumber) {
+        
+        // Example implementation:
+        System.out.println("Canceling reservation...");
+    }
+}
